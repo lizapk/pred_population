@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 model = pickle.load(open('global_population.sav','rb'))
 
-df = pd.read_csv('Global_annual_population.csv')
+df = pd.read_csv('global_population.csv')
 df['Year'] = pd.to_datetime(df['Year'], format='%Y')
 df.set_index(['Year'], inplace=True)
 
