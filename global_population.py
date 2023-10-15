@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-model = pickle.load(open('prediksi_populasi.sav','rb'))
+model = pickle.load(open('global_population.sav','rb'))
 
 df = pd.read_csv('Global_annual_population.csv')
 df['Year'] = pd.to_datetime(df['Year'], format='%Y')
