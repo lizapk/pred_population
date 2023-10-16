@@ -7,7 +7,7 @@ model = pickle.load(open('global_population.sav','rb'))
 
 # Buat prediksi
 input_data = year = st.slider("Tentukan Tahun",1,30, step=1)
-predictions = saved_model.predict(input_data)
+predictions = model.predict(input_data)
 
 # Buat DataFrame untuk hasil prediksi
 df = pd.DataFrame({'Input': input_data, 'Predicted': predictions})
