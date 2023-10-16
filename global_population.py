@@ -1,27 +1,19 @@
-import pickle
 import streamlit as st
+import pickle
 import pandas as pd
-import matplotlib.pyplot as plt
 
+# Muat model
 model = pickle.load(open('global_population.sav','rb'))
 
-df = pd.read_csv('global_population.csv')
-df['Year'] = pd.to_datetime(df['Year'], format='%Y')
-df.set_index(['Year'], inplace=True)
+# Buat prediksi
+input_data = year = st.slider("Tentukan Tahun",1,30, step=1)
+predictions = saved_model.predict(input_data)
 
-st.title('Forecasting Populasi')
-year = st.slider("Tentukan Tahun",1,30, step=1)
+# Buat DataFrame untuk hasil prediksi
+df = pd.DataFrame({'Input': input_data, 'Predicted': predictions})
 
-pred = model.forecast(year)
-pred = pd.DataFrame(pred, columns=['Population'])
+# Tampilkan hasil prediksi dalam grafik garis
+st.line_chart(df.set_index('Input'))
 
-if st.button("Predict"):
-
-    col1, col2 = st.columns([2,3])
-    with col1:
-        st.dataframe(pred)
-    with col2:
-        fig, ax = plt.subplots()
-        df['Population'].plot(style='--', color='gray', legend=True, label='known')
-        pred['Population'].plot(color='b', legend=True, label='Prediction')
-        st.pyplot(fig)
+# Tambahkan judul
+st.title('Hasil Prediksi dengan Grafik Garis')
